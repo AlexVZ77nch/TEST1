@@ -1,20 +1,20 @@
 /*
 
-Написать SQL-скрипты для создания следующей структуры:
+РќР°РїРёСЃР°С‚СЊ SQL-СЃРєСЂРёРїС‚С‹ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЃР»РµРґСѓСЋС‰РµР№ СЃС‚СЂСѓРєС‚СѓСЂС‹:
 
-## Требования
-### Сущность "Магазин"
-Параметры:
+## РўСЂРµР±РѕРІР°РЅРёСЏ
+### РЎСѓС‰РЅРѕСЃС‚СЊ "РњР°РіР°Р·РёРЅ"
+РџР°СЂР°РјРµС‚СЂС‹:
 
-* Идентификатор магазина
-* Код магазина (могут встречаться цифры и буквы латинского алфавита)
-* Название магазина (не более 50 символов)
+* РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РјР°РіР°Р·РёРЅР°
+* РљРѕРґ РјР°РіР°Р·РёРЅР° (РјРѕРіСѓС‚ РІСЃС‚СЂРµС‡Р°С‚СЊСЃСЏ С†РёС„СЂС‹ Рё Р±СѓРєРІС‹ Р»Р°С‚РёРЅСЃРєРѕРіРѕ Р°Р»С„Р°РІРёС‚Р°)
+* РќР°Р·РІР°РЅРёРµ РјР°РіР°Р·РёРЅР° (РЅРµ Р±РѕР»РµРµ 50 СЃРёРјРІРѕР»РѕРІ)
 
 
-### Сущность "Дополнительные параметры магазина"
-Здесь будут храниться дополнительные параметры, заранее их число неизвестно, может быть 20, может быть 40.
-Нужно сделать такую структуру, чтобы количество параметров можно было регулировать динамически.
-Типы данных возможных значений параметров - число(дробное), текст, дата.
+### РЎСѓС‰РЅРѕСЃС‚СЊ "Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РјР°РіР°Р·РёРЅР°"
+Р—РґРµСЃСЊ Р±СѓРґСѓС‚ С…СЂР°РЅРёС‚СЊСЃСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹, Р·Р°СЂР°РЅРµРµ РёС… С‡РёСЃР»Рѕ РЅРµРёР·РІРµСЃС‚РЅРѕ, РјРѕР¶РµС‚ Р±С‹С‚СЊ 20, РјРѕР¶РµС‚ Р±С‹С‚СЊ 40.
+РќСѓР¶РЅРѕ СЃРґРµР»Р°С‚СЊ С‚Р°РєСѓСЋ СЃС‚СЂСѓРєС‚СѓСЂСѓ, С‡С‚РѕР±С‹ РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СЂРµРіСѓР»РёСЂРѕРІР°С‚СЊ РґРёРЅР°РјРёС‡РµСЃРєРё.
+РўРёРїС‹ РґР°РЅРЅС‹С… РІРѕР·РјРѕР¶РЅС‹С… Р·РЅР°С‡РµРЅРёР№ РїР°СЂР°РјРµС‚СЂРѕРІ - С‡РёСЃР»Рѕ(РґСЂРѕР±РЅРѕРµ), С‚РµРєСЃС‚, РґР°С‚Р°.
 
 
 
@@ -47,7 +47,7 @@ IF OBJECT_ID('dbo.PRODUCT_TYPES', 'U') IS NOT NULL DROP TABLE dbo.PRODUCT_TYPES;
 go
 
 
---типы магазинов
+--С‚РёРїС‹ РјР°РіР°Р·РёРЅРѕРІ
 CREATE TABLE dbo.SHOP_TYPES (
  id_shop_type INT NOT NULL IDENTITY(1,1)
 ,name_shop_type VARCHAR(50) NOT NULL
@@ -56,7 +56,7 @@ CREATE TABLE dbo.SHOP_TYPES (
 );
 CREATE INDEX IDX_SHOP_TYPES_addfl_set ON dbo.SHOP_TYPES(addfl_set);
 
---магазины
+--РјР°РіР°Р·РёРЅС‹
 CREATE TABLE dbo.SHOPS (
  id_shop INT NOT NULL IDENTITY(1,1)
 ,code_shop NVARCHAR(20) NOT NULL
@@ -69,7 +69,7 @@ CREATE TABLE dbo.SHOPS (
 
 CREATE INDEX IDX_SHOPS_id_shop_type ON dbo.SHOPS(id_shop_type);
 
---справочник доппараметры магазина
+--СЃРїСЂР°РІРѕС‡РЅРёРє РґРѕРїРїР°СЂР°РјРµС‚СЂС‹ РјР°РіР°Р·РёРЅР°
 CREATE TABLE dbo.SHOP_ADDFL_DIC(
 id_field INT NOT NULL IDENTITY(1,1)
 ,name_field VARCHAR(50) NOT NULL
@@ -81,7 +81,7 @@ id_field INT NOT NULL IDENTITY(1,1)
 
 CREATE INDEX IDX_SHOP_ADDFL_DIC_addfl_set ON dbo.SHOP_ADDFL_DIC(addfl_set);
 
---Дополнительные параметры магазина
+--Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РјР°РіР°Р·РёРЅР°
 CREATE TABLE dbo.SHOP_ADDFLS(
  id_shop INT NOT NULL
 ,id_field INT NOT NULL 
@@ -91,13 +91,13 @@ CREATE TABLE dbo.SHOP_ADDFLS(
 ,CONSTRAINT FK_SHOP_ADDFLS_id_field FOREIGN KEY(id_field) REFERENCES dbo.SHOP_ADDFL_DIC(id_field) ON DELETE CASCADE 
 );
 ------------------------------------------------------------------------------------------------------------
---заполнение типов магазина
+--Р·Р°РїРѕР»РЅРµРЅРёРµ С‚РёРїРѕРІ РјР°РіР°Р·РёРЅР°
 INSERT INTO dbo.SHOP_TYPES(name_shop_type,addfl_set)
-SELECT 'Супермаркет','SM'
-UNION ALL SELECT 'Гипермаркет','GM'
-UNION ALL SELECT 'Магазин у дома','D'
+SELECT 'РЎСѓРїРµСЂРјР°СЂРєРµС‚','SM'
+UNION ALL SELECT 'Р“РёРїРµСЂРјР°СЂРєРµС‚','GM'
+UNION ALL SELECT 'РњР°РіР°Р·РёРЅ Сѓ РґРѕРјР°','D'
 ------------------------------------------------------------------------------------------------------------
---заполнение таблицы магазинов
+--Р·Р°РїРѕР»РЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹ РјР°РіР°Р·РёРЅРѕРІ
 ;WITH cte AS(
 SELECT 1 as num
 UNION ALL 
@@ -106,19 +106,19 @@ SELECT num+1 AS num FROM cte WHERE num <1000
 INSERT INTO  dbo.SHOPS(code_shop,name_shop,id_shop_type)
 SELECT 
  'X' +FORMAT(num,'0') AS code_shop
-, 'Магазин ' +FORMAT(num,'000') AS name_shop
+, 'РњР°РіР°Р·РёРЅ ' +FORMAT(num,'000') AS name_shop
 , st.id_shop_type AS id_shop_type
 FROM cte
-JOIN dbo.SHOP_TYPES st ON st.name_shop_type = CASE WHEN cte.num%100=0 THEN 'Гипермаркет' WHEN cte.num%10=0 THEN 'Супермаркет'  ELSE   'Магазин у дома' END
+JOIN dbo.SHOP_TYPES st ON st.name_shop_type = CASE WHEN cte.num%100=0 THEN 'Р“РёРїРµСЂРјР°СЂРєРµС‚' WHEN cte.num%10=0 THEN 'РЎСѓРїРµСЂРјР°СЂРєРµС‚'  ELSE   'РњР°РіР°Р·РёРЅ Сѓ РґРѕРјР°' END
 OPTION (MAXRECURSION 32000)
 ------------------------------------------------------------------------------------------------------------
---заполнение таблицы словаря допоплей магазинов
-INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'Параметр 0','VARCHAR(500)','ALL',1;
-INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'Параметр 1','INT','SM',1;
-INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'Параметр 2','NUMERIC(10,3)','GM',1;
-INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'Параметр 3','DATETIME','D',1;
+--Р·Р°РїРѕР»РЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹ СЃР»РѕРІР°СЂСЏ РґРѕРїРѕРїР»РµР№ РјР°РіР°Р·РёРЅРѕРІ
+INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'РџР°СЂР°РјРµС‚СЂ 0','VARCHAR(500)','ALL',1;
+INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'РџР°СЂР°РјРµС‚СЂ 1','INT','SM',1;
+INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'РџР°СЂР°РјРµС‚СЂ 2','NUMERIC(10,3)','GM',1;
+INSERT INTO dbo.SHOP_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) SELECT 'РџР°СЂР°РјРµС‚СЂ 3','DATETIME','D',1;
 ------------------------------------------------------------------------------------------------------------
---заполнение допполей магазина
+--Р·Р°РїРѕР»РЅРµРЅРёРµ РґРѕРїРїРѕР»РµР№ РјР°РіР°Р·РёРЅР°
 DECLARE @value SQL_VARIANT, @id_shop INT, @id_field INT, @type_field VARCHAR(50),  @i INT =0;
 DECLARE CurA CURSOR FAST_FORWARD
 FOR 
@@ -139,7 +139,7 @@ BEGIN
 	IF @type_field = 'INT' SET @value = CAST( @i AS INT) 
 	ELSE IF @type_field LIKE '%DATE%' SET @value =  DATEADD(dd,-1*@i,getdate())
 	ELSE IF @type_field = 'NUMERIC(10,3)' SET @value = CAST(@id_shop/@id_field/1000. AS NUMERIC(10,3))
-	ELSE IF @type_field  like '%VARCHAR%' SET @value = 'строка '+ CAST(@i AS VARCHAR)
+	ELSE IF @type_field  like '%VARCHAR%' SET @value = 'СЃС‚СЂРѕРєР° '+ CAST(@i AS VARCHAR)
 	ELSE SET @value =  NULL;
 
 	--SELECT @id_shop AS [@id_shop],@id_field as [@id_field], @type_field as [@type_field],@value AS [@value];
@@ -151,7 +151,7 @@ DEALLOCATE CurA;
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
---представление свойств магазина
+--РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ СЃРІРѕР№СЃС‚РІ РјР°РіР°Р·РёРЅР°
 IF OBJECT_ID('dbo.VSHOP_ADDFLS', 'V') IS NOT NULL DROP VIEW dbo.VSHOP_ADDFLS;
 GO
 CREATE VIEW dbo.VSHOP_ADDFLS AS
@@ -161,13 +161,13 @@ JOIN dbo.SHOP_TYPES st ON st.id_shop_type = sh.id_shop_type
 JOIN dbo.SHOP_ADDFL_DIC d ON d.addfl_set IN (st.addfl_set,'ALL')
 LEFT JOIN dbo.SHOP_ADDFLS af ON af.id_shop = sh.id_shop AND af.id_field = d.id_field
 go
---видно что для каждого типа магазина свой набор полей
-SELECT  TOP (1) WITH TIES * ,'видно что для каждого типа магазина свой набор полей'
+--РІРёРґРЅРѕ С‡С‚Рѕ РґР»СЏ РєР°Р¶РґРѕРіРѕ С‚РёРїР° РјР°РіР°Р·РёРЅР° СЃРІРѕР№ РЅР°Р±РѕСЂ РїРѕР»РµР№
+SELECT  TOP (1) WITH TIES * ,'РІРёРґРЅРѕ С‡С‚Рѕ РґР»СЏ РєР°Р¶РґРѕРіРѕ С‚РёРїР° РјР°РіР°Р·РёРЅР° СЃРІРѕР№ РЅР°Р±РѕСЂ РїРѕР»РµР№'
 FROM dbo.VSHOP_ADDFLS
 ORDER BY   ROW_NUMBER() OVER (PARTITION BY name_shop_type,name_field   ORDER BY id_shop,sort_order,name_field )
---свойства магазина
+--СЃРІРѕР№СЃС‚РІР° РјР°РіР°Р·РёРЅР°
 DECLARE @id_shop INT = 1
-SELECT * ,'Сущность "Дополнительные параметры магазина"'
+SELECT * ,'РЎСѓС‰РЅРѕСЃС‚СЊ "Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РјР°РіР°Р·РёРЅР°"'
 FROM dbo.VSHOP_ADDFLS
 WHERE id_shop = @id_shop
 ORDER BY id_shop,sort_order,name_field
@@ -180,19 +180,19 @@ ORDER BY id_shop,sort_order,name_field
 
 
 /*
-### Сущность "Товар"
-Параметры:
+### РЎСѓС‰РЅРѕСЃС‚СЊ "РўРѕРІР°СЂ"
+РџР°СЂР°РјРµС‚СЂС‹:
 
-* Идентификатор товара
-* Код товара(могут встречаться цифры и буквы латинского алфавита)
-* Название товара (не более 100 символов)
-* Цена (дробное число, обязательно положительное)
+* РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚РѕРІР°СЂР°
+* РљРѕРґ С‚РѕРІР°СЂР°(РјРѕРіСѓС‚ РІСЃС‚СЂРµС‡Р°С‚СЊСЃСЏ С†РёС„СЂС‹ Рё Р±СѓРєРІС‹ Р»Р°С‚РёРЅСЃРєРѕРіРѕ Р°Р»С„Р°РІРёС‚Р°)
+* РќР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР° (РЅРµ Р±РѕР»РµРµ 100 СЃРёРјРІРѕР»РѕРІ)
+* Р¦РµРЅР° (РґСЂРѕР±РЅРѕРµ С‡РёСЃР»Рѕ, РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ)
 
 
-### Сущность "Дополнительные параметры товара"
-Здесь будут храниться дополнительные параметры, заранее их число неизвестно, может быть 20, может быть 40.
-Нужно сделать такую структуру, чтобы количество параметров можно было регулировать динамически.
-Типы данных возможных значений параметров - число(дробное), текст, дата.
+### РЎСѓС‰РЅРѕСЃС‚СЊ "Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ С‚РѕРІР°СЂР°"
+Р—РґРµСЃСЊ Р±СѓРґСѓС‚ С…СЂР°РЅРёС‚СЊСЃСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹, Р·Р°СЂР°РЅРµРµ РёС… С‡РёСЃР»Рѕ РЅРµРёР·РІРµСЃС‚РЅРѕ, РјРѕР¶РµС‚ Р±С‹С‚СЊ 20, РјРѕР¶РµС‚ Р±С‹С‚СЊ 40.
+РќСѓР¶РЅРѕ СЃРґРµР»Р°С‚СЊ С‚Р°РєСѓСЋ СЃС‚СЂСѓРєС‚СѓСЂСѓ, С‡С‚РѕР±С‹ РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СЂРµРіСѓР»РёСЂРѕРІР°С‚СЊ РґРёРЅР°РјРёС‡РµСЃРєРё.
+РўРёРїС‹ РґР°РЅРЅС‹С… РІРѕР·РјРѕР¶РЅС‹С… Р·РЅР°С‡РµРЅРёР№ РїР°СЂР°РјРµС‚СЂРѕРІ - С‡РёСЃР»Рѕ(РґСЂРѕР±РЅРѕРµ), С‚РµРєСЃС‚, РґР°С‚Р°.
 */
 
 
@@ -204,7 +204,7 @@ IF OBJECT_ID('dbo.PRODUCT_ADDFL_DIC', 'U') IS NOT NULL DROP TABLE dbo.PRODUCT_AD
 IF OBJECT_ID('dbo.PRODUCTS', 'U') IS NOT NULL DROP TABLE dbo.PRODUCTS;
 IF OBJECT_ID('dbo.PRODUCT_TYPES', 'U') IS NOT NULL DROP TABLE dbo.PRODUCT_TYPES;
 
---типы товаров
+--С‚РёРїС‹ С‚РѕРІР°СЂРѕРІ
 CREATE TABLE dbo.PRODUCT_TYPES (
  id_product_type INT NOT NULL IDENTITY(1,1)
 ,name_product_type VARCHAR(50) NOT NULL
@@ -212,7 +212,7 @@ CREATE TABLE dbo.PRODUCT_TYPES (
 ,CONSTRAINT PK_PRODUCT_TYPES PRIMARY KEY (id_product_type)
 );
 CREATE INDEX IDX_PRODUCT_TYPES_addfl_set ON dbo.PRODUCT_TYPES(addfl_set);
---товары
+--С‚РѕРІР°СЂС‹
 CREATE TABLE dbo.PRODUCTS (
  id_product INT NOT NULL IDENTITY(1,1)
 ,code_product NVARCHAR(20) NOT NULL
@@ -225,7 +225,7 @@ CREATE TABLE dbo.PRODUCTS (
 ,CONSTRAINT CK_PRODUCTS_sm_price CHECK  (sm_price>0)
 );
 
---справочник доппараметры товара
+--СЃРїСЂР°РІРѕС‡РЅРёРє РґРѕРїРїР°СЂР°РјРµС‚СЂС‹ С‚РѕРІР°СЂР°
 CREATE TABLE dbo.PRODUCT_ADDFL_DIC(
 id_field INT NOT NULL IDENTITY(1,1)
 ,name_field VARCHAR(50) NOT NULL
@@ -238,7 +238,7 @@ id_field INT NOT NULL IDENTITY(1,1)
 CREATE INDEX IDX_PRODUCT_ADDFL_DIC_addfl_set ON dbo.PRODUCT_ADDFL_DIC(addfl_set);
 
 
---Дополнительные параметры товара
+--Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ С‚РѕРІР°СЂР°
 CREATE TABLE dbo.PRODUCT_ADDFLS(
  id_product INT NOT NULL
 ,id_field INT NOT NULL 
@@ -249,19 +249,19 @@ CREATE TABLE dbo.PRODUCT_ADDFLS(
 );
 
 ------------------------------------------------------------------------------------------------------------
---заполнение типов товара
+--Р·Р°РїРѕР»РЅРµРЅРёРµ С‚РёРїРѕРІ С‚РѕРІР°СЂР°
 DELETE FROM PRODUCT_TYPES where 1=1
 INSERT INTO dbo.PRODUCT_TYPES(name_product_type,addfl_set)
-SELECT 'Косметика','CSM'
-UNION ALL SELECT 'Бытовая химия','CHM'
-UNION ALL SELECT 'Продукты питания','FD'
+SELECT 'РљРѕСЃРјРµС‚РёРєР°','CSM'
+UNION ALL SELECT 'Р‘С‹С‚РѕРІР°СЏ С…РёРјРёСЏ','CHM'
+UNION ALL SELECT 'РџСЂРѕРґСѓРєС‚С‹ РїРёС‚Р°РЅРёСЏ','FD'
 
 
 
 
 
 
---заполнение таблицы товаров
+--Р·Р°РїРѕР»РЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹ С‚РѕРІР°СЂРѕРІ
 DELETE FROM PRODUCTS where 1=1;
 WITH cte AS(
 SELECT 1 as num
@@ -271,33 +271,33 @@ SELECT num+1 AS num FROM cte WHERE num <1000
 INSERT INTO  dbo.PRODUCTS(code_product,name_product,id_product_type,sm_price)
 SELECT 
  'P_' +FORMAT(num,'0') AS code_product
-, 'Товар ' +FORMAT(num,'000') AS name_product
+, 'РўРѕРІР°СЂ ' +FORMAT(num,'000') AS name_product
 , st.id_product_type AS id_product_type
 ,ROUND(RAND(CHECKSUM(NEWID()))*100 
---+ CASE WHEN st.name_product_type = 'Бытовая химия' THEN 100  WHEN st.name_product_type = 'Косметика' THEN 500  ELSE  0 END 
+--+ CASE WHEN st.name_product_type = 'Р‘С‹С‚РѕРІР°СЏ С…РёРјРёСЏ' THEN 100  WHEN st.name_product_type = 'РљРѕСЃРјРµС‚РёРєР°' THEN 500  ELSE  0 END 
 +num%7 *100
 ,2) AS sm_price
 FROM cte
-JOIN dbo.PRODUCT_TYPES st ON st.name_product_type = CASE WHEN cte.num%100=0 THEN 'Бытовая химия' WHEN cte.num%10=0 THEN 'Косметика'  ELSE   'Продукты питания' END
+JOIN dbo.PRODUCT_TYPES st ON st.name_product_type = CASE WHEN cte.num%100=0 THEN 'Р‘С‹С‚РѕРІР°СЏ С…РёРјРёСЏ' WHEN cte.num%10=0 THEN 'РљРѕСЃРјРµС‚РёРєР°'  ELSE   'РџСЂРѕРґСѓРєС‚С‹ РїРёС‚Р°РЅРёСЏ' END
 OPTION (MAXRECURSION 32000)
 
 
 
 
---заполнение таблицы словаря допоплей магазинов
+--Р·Р°РїРѕР»РЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹ СЃР»РѕРІР°СЂСЏ РґРѕРїРѕРїР»РµР№ РјР°РіР°Р·РёРЅРѕРІ
 DELETE FROM PRODUCT_ADDFL_DIC WHERE 1=1;
 INSERT INTO dbo.PRODUCT_ADDFL_DIC(name_field,type_field,addfl_set,sort_order) 
-SELECT 'Параметр 0','VARCHAR(500)','ALL',1
-UNION ALL SELECT 'Параметр 1','INT','CSM',1
-UNION ALL SELECT 'Параметр 2','MONEY','CHM',1
-UNION ALL SELECT 'Параметр 3','DATETIME','FD',1
-UNION ALL SELECT 'Объем','DECIMAL(9,3)','ALL',1
+SELECT 'РџР°СЂР°РјРµС‚СЂ 0','VARCHAR(500)','ALL',1
+UNION ALL SELECT 'РџР°СЂР°РјРµС‚СЂ 1','INT','CSM',1
+UNION ALL SELECT 'РџР°СЂР°РјРµС‚СЂ 2','MONEY','CHM',1
+UNION ALL SELECT 'РџР°СЂР°РјРµС‚СЂ 3','DATETIME','FD',1
+UNION ALL SELECT 'РћР±СЉРµРј','DECIMAL(9,3)','ALL',1
 
 
 
 
 -----------------------------------------------------------------------------------------
---заполнение допполей товара
+--Р·Р°РїРѕР»РЅРµРЅРёРµ РґРѕРїРїРѕР»РµР№ С‚РѕРІР°СЂР°
 DELETE FROM PRODUCT_ADDFLS WHERE 1=1;
 DECLARE @value SQL_VARIANT, @id_product INT, @id_field INT, @type_field VARCHAR(50),  @i INT =0, @name_product_type VARCHAR(50);
 DECLARE CurA CURSOR FAST_FORWARD
@@ -319,8 +319,8 @@ BEGIN
 	IF @type_field = 'INT' SET @value = CAST( @i AS INT) 
 	ELSE IF @type_field LIKE '%DATE%' SET @value =  DATEADD(dd,-1*@i,getdate())
 	ELSE IF @type_field like '%MONEY' SET @value = CAST(@id_product/@id_field/1000. AS MONEY)
-	ELSE IF @type_field like 'DECIMAL(9,3)' SET @value = ROUND(RAND(CHECKSUM(NEWID()))*1000,CASE @name_product_type WHEN 'Продукты питания' THEN 3 ELSE 0 END)-- CAST(@id_product/@id_field/1000.+@id_product AS DECIMAL(9,3))
-	ELSE IF @type_field  like '%VARCHAR%' SET @value = 'строка '+ CAST(@i AS VARCHAR)
+	ELSE IF @type_field like 'DECIMAL(9,3)' SET @value = ROUND(RAND(CHECKSUM(NEWID()))*1000,CASE @name_product_type WHEN 'РџСЂРѕРґСѓРєС‚С‹ РїРёС‚Р°РЅРёСЏ' THEN 3 ELSE 0 END)-- CAST(@id_product/@id_field/1000.+@id_product AS DECIMAL(9,3))
+	ELSE IF @type_field  like '%VARCHAR%' SET @value = 'СЃС‚СЂРѕРєР° '+ CAST(@i AS VARCHAR)
 	ELSE SET @value =  NULL;
 
 	INSERT INTO dbo.PRODUCT_ADDFLS(id_product, id_field, value)	SELECT @id_product, @id_field, @value;
@@ -333,7 +333,7 @@ DEALLOCATE CurA;
 
 ------------------------------------------------------------------------------------------------------------
 
---представление свойств товара
+--РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ СЃРІРѕР№СЃС‚РІ С‚РѕРІР°СЂР°
 IF OBJECT_ID('dbo.VPRODUCT_ADDFLS', 'V') IS NOT NULL DROP VIEW dbo.VPRODUCT_ADDFLS;
 GO
 CREATE VIEW dbo.VPRODUCT_ADDFLS AS
@@ -346,30 +346,30 @@ go
 
 
 
---видно что для каждого типа магазина свой набор полей
-SELECT  TOP (1) WITH TIES * ,'видно что для каждого типа магазина свой набор полей'
+--РІРёРґРЅРѕ С‡С‚Рѕ РґР»СЏ РєР°Р¶РґРѕРіРѕ С‚РёРїР° РјР°РіР°Р·РёРЅР° СЃРІРѕР№ РЅР°Р±РѕСЂ РїРѕР»РµР№
+SELECT  TOP (1) WITH TIES * ,'РІРёРґРЅРѕ С‡С‚Рѕ РґР»СЏ РєР°Р¶РґРѕРіРѕ С‚РёРїР° РјР°РіР°Р·РёРЅР° СЃРІРѕР№ РЅР°Р±РѕСЂ РїРѕР»РµР№'
 FROM dbo.VPRODUCT_ADDFLS
 ORDER BY   ROW_NUMBER() OVER (PARTITION BY name_product_type,name_field   ORDER BY id_product,sort_order,name_field )
 
---свойства товара
+--СЃРІРѕР№СЃС‚РІР° С‚РѕРІР°СЂР°
 DECLARE @id_product INT = 10
-SELECT * ,'Сущность "Дополнительные параметры товара"'
+SELECT * ,'РЎСѓС‰РЅРѕСЃС‚СЊ "Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ С‚РѕРІР°СЂР°"'
 FROM dbo.VPRODUCT_ADDFLS
 WHERE id_product = @id_product
 ORDER BY id_product,sort_order,name_field
 
 ------------------------------------------------------------------------------------------------------------
 /*
-### Сущность "Средний объем товара по ценовым диапазонам"
-Сделать агрегат по следующей логике:
-Разделить по цене товары на категории:
+### РЎСѓС‰РЅРѕСЃС‚СЊ "РЎСЂРµРґРЅРёР№ РѕР±СЉРµРј С‚РѕРІР°СЂР° РїРѕ С†РµРЅРѕРІС‹Рј РґРёР°РїР°Р·РѕРЅР°Рј"
+РЎРґРµР»Р°С‚СЊ Р°РіСЂРµРіР°С‚ РїРѕ СЃР»РµРґСѓСЋС‰РµР№ Р»РѕРіРёРєРµ:
+Р Р°Р·РґРµР»РёС‚СЊ РїРѕ С†РµРЅРµ С‚РѕРІР°СЂС‹ РЅР° РєР°С‚РµРіРѕСЂРёРё:
 
-* до 50 рублей
-* 50 - 100 рублей
-* 100 - 500 рублей
-* остальные товары
+* РґРѕ 50 СЂСѓР±Р»РµР№
+* 50 - 100 СЂСѓР±Р»РµР№
+* 100 - 500 СЂСѓР±Р»РµР№
+* РѕСЃС‚Р°Р»СЊРЅС‹Рµ С‚РѕРІР°СЂС‹
 
-В разрезе каждой группы вычислить "Объем товара". "Объем товара" нужно взять из сущности "Дополнительные параметры товара".
+Р’ СЂР°Р·СЂРµР·Рµ РєР°Р¶РґРѕР№ РіСЂСѓРїРїС‹ РІС‹С‡РёСЃР»РёС‚СЊ "РћР±СЉРµРј С‚РѕРІР°СЂР°". "РћР±СЉРµРј С‚РѕРІР°СЂР°" РЅСѓР¶РЅРѕ РІР·СЏС‚СЊ РёР· СЃСѓС‰РЅРѕСЃС‚Рё "Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ С‚РѕРІР°СЂР°".
 
 */
 
@@ -380,15 +380,15 @@ GO
 CREATE VIEW dbo.VPRODUCTS_VOLUME_GRP AS
 WITH CTE AS (
 SELECT p.id_product, p.name_product, p.sm_price
-,price_range = CASE WHEN p.sm_price <=50 THEN '1) до 50 рублей'
-					WHEN p.sm_price >50 AND p.sm_price <=100 THEN '2) 50 - 100 рублей'
-					WHEN p.sm_price >100 AND p.sm_price <=500 THEN '3) 100 - 500 рублей'
-					ELSE '4) свыше 500 рублей'
+,price_range = CASE WHEN p.sm_price <=50 THEN '1) РґРѕ 50 СЂСѓР±Р»РµР№'
+					WHEN p.sm_price >50 AND p.sm_price <=100 THEN '2) 50 - 100 СЂСѓР±Р»РµР№'
+					WHEN p.sm_price >100 AND p.sm_price <=500 THEN '3) 100 - 500 СЂСѓР±Р»РµР№'
+					ELSE '4) СЃРІС‹С€Рµ 500 СЂСѓР±Р»РµР№'
 				END
 ,d.name_field
 ,CAST(af.value AS DECIMAL(9,3)) AS cn_volume
 FROM PRODUCTS p
-JOIN dbo.PRODUCT_ADDFL_DIC d ON d.name_field = 'Объем' 
+JOIN dbo.PRODUCT_ADDFL_DIC d ON d.name_field = 'РћР±СЉРµРј' 
 JOIN dbo.PRODUCT_ADDFLS af ON af.id_product = p.id_product AND af.id_field = d.id_field
 )
 SELECT price_range, COUNT(1) AS cn_products,AVG(cn_volume) AS cn_volume_avg,MIN(cn_volume) AS cn_volume_min,MAX(cn_volume) AS cn_volume_max
@@ -396,18 +396,18 @@ FROM CTE
 GROUP BY price_range
 GO
 
-SELECT *,'Сущность "Средний объем товара по ценовым диапазонам"'
+SELECT *,'РЎСѓС‰РЅРѕСЃС‚СЊ "РЎСЂРµРґРЅРёР№ РѕР±СЉРµРј С‚РѕРІР°СЂР° РїРѕ С†РµРЅРѕРІС‹Рј РґРёР°РїР°Р·РѕРЅР°Рј"'
 FROM dbo.VPRODUCTS_VOLUME_GRP
 
 ------------------------------------------------------------------------------------------------------------
 /*
-### Сущность "Продажи"
-В таблице должна быть такая информация, из которой было бы понятно:
+### РЎСѓС‰РЅРѕСЃС‚СЊ "РџСЂРѕРґР°Р¶Рё"
+Р’ С‚Р°Р±Р»РёС†Рµ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ С‚Р°РєР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ, РёР· РєРѕС‚РѕСЂРѕР№ Р±С‹Р»Рѕ Р±С‹ РїРѕРЅСЏС‚РЅРѕ:
 
-* Где совершена покупка
-* Когда совершена покупка
-* Что купили
-* В каком объеме
+* Р“РґРµ СЃРѕРІРµСЂС€РµРЅР° РїРѕРєСѓРїРєР°
+* РљРѕРіРґР° СЃРѕРІРµСЂС€РµРЅР° РїРѕРєСѓРїРєР°
+* Р§С‚Рѕ РєСѓРїРёР»Рё
+* Р’ РєР°РєРѕРј РѕР±СЉРµРјРµ
 
 
 */
@@ -425,7 +425,7 @@ CREATE PARTITION FUNCTION PF_YEARS (datetime) AS RANGE RIGHT FOR VALUES ( '20180
 go
 CREATE PARTITION SCHEME PS_YEARS AS PARTITION PF_YEARS TO ( [primary], FG_2018, FG_2019, [primary] );
 go
---документы продажи(чеки)
+--РґРѕРєСѓРјРµРЅС‚С‹ РїСЂРѕРґР°Р¶Рё(С‡РµРєРё)
 CREATE TABLE dbo.DOCUMENTS(
 id_doc INT NOT NULL IDENTITY(1,1)
 ,docdate DATETIME NOT NULL
@@ -439,7 +439,7 @@ id_doc INT NOT NULL IDENTITY(1,1)
 
 CREATE INDEX IDX_DOCUMENTS_id_shop ON dbo.DOCUMENTS(id_shop);
 
---спецификации чеков
+--СЃРїРµС†РёС„РёРєР°С†РёРё С‡РµРєРѕРІ
 CREATE TABLE dbo.DOCUMENT_ITEMS(
 id_doc INT NOT NULL
 ,docdate DATETIME NOT NULL
@@ -480,26 +480,26 @@ go
 
 
 ------------------------------------------------------------------------------------------------------------
---заполнение документов BEGIN
+--Р·Р°РїРѕР»РЅРµРЅРёРµ РґРѕРєСѓРјРµРЅС‚РѕРІ BEGIN
 IF OBJECT_ID('tempdb..#DOCS_ITEMS', 'U') IS NOT NULL DROP TABLE #DOCS_ITEMS;
-WITH [Все товары] AS (
+WITH [Р’СЃРµ С‚РѕРІР°СЂС‹] AS (
 SELECT p.id_product, p.name_product, p.sm_price
 ,CAST(IIF(p.id_product%2 =0,'20181207','20190107') AS DATETIME) AS docdate
 ,CAST(af.value AS DECIMAL(9,3)) AS cn_volume 
 ,ROUND(CAST(af.value AS DECIMAL(9,3))/120,1) AS cn_volume_by_doc
 ,sh.id_shop
 FROM PRODUCTS p
-JOIN dbo.PRODUCT_ADDFL_DIC d ON d.name_field = 'Объем' 
+JOIN dbo.PRODUCT_ADDFL_DIC d ON d.name_field = 'РћР±СЉРµРј' 
 JOIN dbo.PRODUCT_ADDFLS af ON af.id_product = p.id_product AND af.id_field = d.id_field
 CROSS JOIN (SELECT TOP 10 * FROM dbo.SHOPS) sh 
-), [С остаточным объемом] AS (
+), [РЎ РѕСЃС‚Р°С‚РѕС‡РЅС‹Рј РѕР±СЉРµРјРѕРј] AS (
 SELECT *
 ,cn_volume +cn_volume_by_doc - SUM(cn_volume_by_doc) OVER(PARTITION BY id_product ORDER BY id_shop) AS cn_cn_volume_rest
-FROM [Все товары])
+FROM [Р’СЃРµ С‚РѕРІР°СЂС‹])
 SELECT *
 , IIF(cn_cn_volume_rest>cn_volume_by_doc,cn_volume_by_doc,cn_cn_volume_rest) AS cn_volume_by_doc_itg
 INTO #DOCS_ITEMS
-FROM [С остаточным объемом]
+FROM [РЎ РѕСЃС‚Р°С‚РѕС‡РЅС‹Рј РѕР±СЉРµРјРѕРј]
 WHERE cn_cn_volume_rest>0
 ORDER BY id_product,id_shop
 
@@ -518,9 +518,9 @@ SELECT d.docdate,d.id_doc,i.id_product,i.cn_volume_by_doc_itg AS cn_dcount, i.sm
 FROM #DOCS_ITEMS i
 JOIN @INS_DOCS d ON d.id_shop = i.id_shop AND d.docdate = i.docdate;
 
---заполнение документов END
+--Р·Р°РїРѕР»РЅРµРЅРёРµ РґРѕРєСѓРјРµРЅС‚РѕРІ END
 ------------------------------------------------------------------------------------------------------------
---### Сущность "Продажи"
+--### РЎСѓС‰РЅРѕСЃС‚СЊ "РџСЂРѕРґР°Р¶Рё"
 IF OBJECT_ID('dbo.VDOCUMENT_ITEMS', 'V') IS NOT NULL DROP VIEW dbo.VDOCUMENT_ITEMS;
 GO
 CREATE VIEW dbo.VDOCUMENT_ITEMS AS
@@ -531,19 +531,19 @@ JOIN dbo.PRODUCTS p ON i.id_product = p.id_product
 JOIN SHOPS sh ON sh.id_shop  = d.id_shop
 go
 
-select * ,'Сущность "Продажи"'
+select * ,'РЎСѓС‰РЅРѕСЃС‚СЊ "РџСЂРѕРґР°Р¶Рё"'
 from dbo.VDOCUMENT_ITEMS
 ------------------------------------------------------------------------------------------------------------
 
 /*
 
-### Сущность "Продажи за месяц"
-Агрегированные данные по продажам, в разрезе:
-"Магазин-товар-месяц: параметры"
-Параметры:
+### РЎСѓС‰РЅРѕСЃС‚СЊ "РџСЂРѕРґР°Р¶Рё Р·Р° РјРµСЃСЏС†"
+РђРіСЂРµРіРёСЂРѕРІР°РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ РїРѕ РїСЂРѕРґР°Р¶Р°Рј, РІ СЂР°Р·СЂРµР·Рµ:
+"РњР°РіР°Р·РёРЅ-С‚РѕРІР°СЂ-РјРµСЃСЏС†: РїР°СЂР°РјРµС‚СЂС‹"
+РџР°СЂР°РјРµС‚СЂС‹:
 
-* Суммарный объем продаж
-* Любые другие на Ваше усмотрение
+* РЎСѓРјРјР°СЂРЅС‹Р№ РѕР±СЉРµРј РїСЂРѕРґР°Р¶
+* Р›СЋР±С‹Рµ РґСЂСѓРіРёРµ РЅР° Р’Р°С€Рµ СѓСЃРјРѕС‚СЂРµРЅРёРµ
 
 */
 ------------------------------------------------------------------------------------------------------------
@@ -552,7 +552,7 @@ go
 CREATE FUNCTION dbo.sales_month(@pyear INT = 2019, @pmonth INT = 1, @id_shop INT =0) 
 RETURNS TABLE AS RETURN
 --DECLARE @pyear INT = 2019, @pmonth INT = 1, @id_shop INT =0;
-WITH [Продажи за месяц] AS (
+WITH [РџСЂРѕРґР°Р¶Рё Р·Р° РјРµСЃСЏС†] AS (
 SELECT d.id_shop,i.id_product
 --, YEAR(d.docdate) AS pyear 
 --, MONTH(d.docdate) AS pmonth 
@@ -573,14 +573,14 @@ d.id_shop,i.id_product
 --WITH ROLLUP
 )
 SELECT @pyear AS pyear, @pmonth AS pmonth,  i.*, sh.name_shop, p.name_product
-FROM [Продажи за месяц] i
+FROM [РџСЂРѕРґР°Р¶Рё Р·Р° РјРµСЃСЏС†] i
 LEFT JOIN dbo.PRODUCTS p ON i.id_product = p.id_product
 LEFT JOIN SHOPS sh ON sh.id_shop  = i.id_shop;
 go
 
 
---### Сущность "Продажи за месяц"
-SELECT * ,'Сущность "Продажи за месяц"'
+--### РЎСѓС‰РЅРѕСЃС‚СЊ "РџСЂРѕРґР°Р¶Рё Р·Р° РјРµСЃСЏС†"
+SELECT * ,'РЎСѓС‰РЅРѕСЃС‚СЊ "РџСЂРѕРґР°Р¶Рё Р·Р° РјРµСЃСЏС†"'
 FROM dbo.sales_month(2019,1,0) i
 ORDER BY  i.id_shop,i.id_product,i.pyear,i.pmonth;
 
